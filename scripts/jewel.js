@@ -1,4 +1,10 @@
 var jewel = (function() {
+    var settings = {
+        rows : 8,
+        cols : 8,
+        baseScore : 100,
+        numJewelTypes : 7
+    };
 
     var scriptQueue = [],
         numResourcesLoaded = 0,
@@ -66,6 +72,8 @@ var jewel = (function() {
         if (activeScreen) {
             dom.removeClass(activeScreen, "active");
         }
+        // run the screen module
+        jewel.screens[screenId].run();
         dom.addClass(screen, "active");
         // run the screen module
         jewel.screens[screenId].run();
@@ -102,6 +110,7 @@ var jewel = (function() {
         load: load,
         setup: setup,
         showScreen : showScreen,
+        settings: settings,
         screens: {}
     };
 })();

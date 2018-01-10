@@ -36,7 +36,8 @@
             jewel.load("scripts/dom.js");
             if (jewel.isStandalone()) {
                 jewel.load("scripts/screen.splash.js");
-                jewel.load("scripts/screen.main-menu.js", jewel.setup);
+                jewel.load("scripts/screen.main-menu.js");
+                jewel.load("scripts/board.js", jewel.setup);
             } else {
                 jewel.load("scripts/screen.install.js", jewel.setup);
             }
