@@ -44,6 +44,7 @@
                     jewel.load("scripts/board.js");
                 }
                 jewel.load("scripts/screen.game.js");
+                jewel.load("scripts/requestAnimationFrame.js");
                 jewel.load("scripts/display.canvas.js");
                 jewel.load("scripts/input.js");
             } else {
@@ -80,7 +81,13 @@
         </div>
         <div class="screen" id="game-screen">
             <div class="game-board">
+                <div class="announcement"></div>
             </div>
+            <div class="game-info">
+                <label class="level">Level: <span></span></label>
+                <label class="score">Score: <span></span></label>
+            </div>
+            <div class="time progress"><div class="indicator"></div></div>
             <footer>
                 <button class="exit">Exit</button>
                 <button class="pause">Pause</button>

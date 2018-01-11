@@ -3,6 +3,9 @@ var jewel = (function() {
         rows : 8,
         cols : 8,
         baseScore : 100,
+        baseLevelScore : 1500,
+        baseLevelExp : 1.05,
+        baseLevelTimer : 60000,
         numJewelTypes : 7,
         controls : {
             // keyboard
@@ -98,8 +101,6 @@ var jewel = (function() {
         if (activeScreen) {
             dom.removeClass(activeScreen, "active");
         }
-        // run the screen module
-        jewel.screens[screenId].run();
         dom.addClass(screen, "active");
         // run the screen module
         jewel.screens[screenId].run();
