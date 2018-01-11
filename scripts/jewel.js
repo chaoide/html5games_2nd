@@ -114,6 +114,10 @@ var jewel = (function() {
         return ("Worker" in window);
     }
 
+    function hasWebWorkers() {
+        return ("Worker" in window);
+    }
+
     function setup() {
         // hide the address bar on Android devices
         if (/Android/.test(navigator.userAgent)) {

@@ -18,6 +18,7 @@ jewel.screens["game-screen"] = (function() {
             endTime : 0 // time to game over
         };
         updateGameInfo();
+        jewel.audio.initialize();
         board.initialize(function() {
             display.initialize(function() {
                 cursor = {
@@ -34,7 +35,6 @@ jewel.screens["game-screen"] = (function() {
         var overlay = jewel.dom.$("#game-screen .pause-overlay")[0];
         overlay.style.display = "none";
     }
-
     function updateGameInfo() {
         var $ = jewel.dom.$;
         $("#game-screen .score span")[0].innerHTML =
@@ -42,6 +42,7 @@ jewel.screens["game-screen"] = (function() {
         $("#game-screen .level span")[0].innerHTML =
             gameState.level;
     }
+
 
 
     function setLevelTimer(reset) {
@@ -75,7 +76,6 @@ jewel.screens["game-screen"] = (function() {
         cursor.selected = select;
         jewel.display.setCursor(x, y, select);
     }
-    
     function selectJewel(x, y) {
         if (paused) {
             return;
@@ -106,6 +106,7 @@ jewel.screens["game-screen"] = (function() {
         }
     }
 
+
     function playBoardEvents(events) {
         var display = jewel.display;
         if (events.length > 0) {
@@ -118,6 +119,7 @@ jewel.screens["game-screen"] = (function() {
                     display.moveJewels(boardEvent.data, next);
                     break;
                 case "remove" :
+                    jewel.audio.play("match");
                     display.removeJewels(boardEvent.data, next);
                     break;
                 case "refill" :
@@ -126,6 +128,10 @@ jewel.screens["game-screen"] = (function() {
                     break;
                 case "score" : // new score event
                     addScore(boardEvent.data);
+                    next();
+                    break;
+                case "badswap" :
+                    jewel.audio.play("badswap");
                     next();
                     break;
                 default :
@@ -140,6 +146,7 @@ jewel.screens["game-screen"] = (function() {
     }
 
     function gameOver() {
+        jewel.audio.play("gameover");
         jewel.display.gameOver(function() {
             announce("Game over");
         });
@@ -159,6 +166,7 @@ jewel.screens["game-screen"] = (function() {
     }
     
     function advanceLevel() {
+        jewel.audio.play("levelup");
         gameState.level++;
         announce("Level " + gameState.level);
         updateGameInfo();
@@ -200,19 +208,6 @@ jewel.screens["game-screen"] = (function() {
         console.log("Cursor position: " + x + ", " + y);
     }
 
-    function pauseGame() {
-        if (paused) {
-            return; // do nothing if already paused
-        }
-        var dom = jewel.dom,
-            overlay = dom.$("#game-screen .pause-overlay")[0];
-        overlay.style.display = "block";
-        paused = true;
-        pauseStart = Date.now();
-        clearTimeout(gameState.timer);
-        jewel.display.pause();
-    }
-
     function moveUp() {
         moveCursor(0, -1);
     }
@@ -227,6 +222,19 @@ jewel.screens["game-screen"] = (function() {
 
     function moveRight() {
         moveCursor(1, 0);
+    }
+
+    function pauseGame() {
+        if (paused) {
+            return; // do nothing if already paused
+        }
+        var dom = jewel.dom,
+            overlay = dom.$("#game-screen .pause-overlay")[0];
+        overlay.style.display = "block";
+        paused = true;
+        pauseStart = Date.now();
+        clearTimeout(gameState.timer);
+        jewel.display.pause();
     }
 
     function resumeGame() {
