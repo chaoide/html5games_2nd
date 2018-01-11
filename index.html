@@ -44,6 +44,7 @@
                     jewel.load("scripts/board.js");
                 }
                 jewel.load("scripts/screen.game.js");
+                jewel.load("scripts/screen.high-scores.js");
                 jewel.load("scripts/requestAnimationFrame.js");
                 if (jewel.hasWebGL()) {
                     jewel.load("scripts/webgl.js");
@@ -53,6 +54,7 @@
                 }
                 jewel.load("scripts/input.js");
                 jewel.load("scripts/audio.js");
+                jewel.load("scripts/storage.js");
             } else {
                 jewel.load("scripts/screen.install.js", jewel.setup);
             }
@@ -102,7 +104,14 @@
                 <div class="pause-text">Pause</div>
             </div>
         </div>
-        <div class="screen" id="high-scores"></div>
+        <div class="screen" id="high-scores">
+            <h2 class="logo">High score</h2>
+            <ol class="score-list">
+            </ol>
+            <footer>
+                <button class="back">Back</button>
+            </footer>
+        </div>
     </div>
 </body>
 </html>
