@@ -118,6 +118,13 @@ var jewel = (function() {
         return ("Worker" in window);
     }
 
+    function hasWebGL() {
+        var canvas = document.createElement("canvas"),
+            gl = canvas.getContext("webgl") ||
+                 canvas.getContext("experimental-webgl");
+        return !!gl;
+    }
+
     function setup() {
         // hide the address bar on Android devices
         if (/Android/.test(navigator.userAgent)) {
@@ -144,6 +151,7 @@ var jewel = (function() {
     return {
         getLoadProgress: getLoadProgress,
         hasWebWorkers: hasWebWorkers,
+        hasWebGL: hasWebGL,
         isStandalone: isStandalone,
         preload: preload,
         load: load,
