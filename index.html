@@ -35,14 +35,16 @@
         window.addEventListener("load", function() {
             jewel.load("scripts/dom.js");
             if (jewel.isStandalone()) {
-                jewel.load("scripts/screen.splash.js");
+                jewel.load("scripts/screen.splash.js", jewel.setup);
                 jewel.load("scripts/screen.main-menu.js");
                 if (jewel.hasWebWorkers()) {
                     jewel.preload("scripts/board.worker.js");
-                    jewel.load("scripts/board.worker-interface.js", jewel.setup);
+                    jewel.load("scripts/board.worker-interface.js");
                 } else {
-                    jewel.load("scripts/board.js", jewel.setup);
+                    jewel.load("scripts/board.js");
                 }
+                jewel.load("scripts/screen.game.js");
+                jewel.load("scripts/display.canvas.js");
             } else {
                 jewel.load("scripts/screen.install.js", jewel.setup);
             }
@@ -53,6 +55,9 @@
     <div id="game">
         <div class="screen" id="splash-screen">
             <h1 class="logo">Jewel <br/>Warrior</h1>
+            <div class="progress">
+                <div class="indicator"></div>
+            </div>
             <span class="continue">Click to continue</span>
         </div>
         <div class="screen" id="install-screen">
@@ -72,7 +77,17 @@
                 <li><button name="exit-screen">Exit</button>
             </ul>
         </div>
-        <div class="screen" id="game-screen"></div>
+        <div class="screen" id="game-screen">
+            <div class="game-board">
+            </div>
+            <footer>
+                <button class="exit">Exit</button>
+                <button class="pause">Pause</button>
+            </footer>
+            <div class="pause-overlay">
+                <div class="pause-text">Pause</div>
+            </div>
+        </div>
         <div class="screen" id="high-scores"></div>
     </div>
 </body>

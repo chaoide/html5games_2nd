@@ -34,6 +34,9 @@ var jewel = (function() {
         }
     }
 
+    function getLoadProgress() {
+        return numResourcesLoaded / numResources;
+    }
 
     function load(src, callback) {
         var image, queueEntry;
@@ -112,9 +115,11 @@ var jewel = (function() {
         } else {
             showScreen("install-screen");
         }
+        
     }
 
     return {
+        getLoadProgress: getLoadProgress,
         hasWebWorkers: hasWebWorkers,
         isStandalone: isStandalone,
         preload: preload,
