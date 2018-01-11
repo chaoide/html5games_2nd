@@ -37,11 +37,15 @@
             if (jewel.isStandalone()) {
                 jewel.load("scripts/screen.splash.js");
                 jewel.load("scripts/screen.main-menu.js");
-                jewel.load("scripts/board.js", jewel.setup);
+                if (jewel.hasWebWorkers()) {
+                    jewel.preload("scripts/board.worker.js");
+                    jewel.load("scripts/board.worker-interface.js", jewel.setup);
+                } else {
+                    jewel.load("scripts/board.js", jewel.setup);
+                }
             } else {
                 jewel.load("scripts/screen.install.js", jewel.setup);
             }
-            
         });
     </script>
 </head>

@@ -57,6 +57,11 @@ var jewel = (function() {
         };
         image.src = src;
     }
+
+    function preload(src) {
+        var image = new Image();
+        image.src = src;
+    }
     
     // hide the active screen (if any) and show the screen
     // with the specified id
@@ -83,6 +88,10 @@ var jewel = (function() {
         return (window.navigator.standalone !== false);
     }
 
+    function hasWebWorkers() {
+        return ("Worker" in window);
+    }
+
     function setup() {
         // hide the address bar on Android devices
         if (/Android/.test(navigator.userAgent)) {
@@ -106,7 +115,9 @@ var jewel = (function() {
     }
 
     return {
+        hasWebWorkers: hasWebWorkers,
         isStandalone: isStandalone,
+        preload: preload,
         load: load,
         setup: setup,
         showScreen : showScreen,
